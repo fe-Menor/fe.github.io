@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Mini Loja Virtual</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		
+		<style type="text/css">
+			#produtos{
+                max-width: 1000px;
+                margin:0 auto;
+                padding:0 2%;
+                display: flex;
+                justify-content: center;
+            }
+            
+            #carrinho{
+                max-width: 900px;
+                margin:0 auto;
+                padding:0 2%;
+                display: block;
+            }
+
+            .produto-single{
+                width:33.3%;
+                padding:0 20px;
+            }
+
+            .produto-single img{
+            	width:100%;
+            	height:200px;
+            	border:2px solid white;
+            }
+		</style>
+
+	</head>
+<body>
+	
+
+		<h2 class="texto">Vitrine:</h2>
+		<div id="produtos"></div><!-- produtos -->
+
+		<h2 class="texto">Carrinho</h2>
+			
+		<div id="carrinho"></div><!-- carrinho -->
+
+		<script>
+
+				const items = [
+				{
+					id:0,
+					nome:'jaqueta',
+					img:'jaqueta.jpeg',
+					quantidade:0
+				},
+				{
+					id:1,
+					nome:'calca',
+					img:'calça.jpeg',
+					quantidade:0
+				},
+				{
+					id:2,
+					nome:'bermuda',
+					img:'bermuda.jpeg',
+					quantidade:0
+				},
+				]
+
+				iniciarLoja = () =>{
+				var containerprodutos = document.getElementById('produtos');
+					items.map((val)=>{
+						containerprodutos.innerHTML+= `
+
+							<div class="produto-single">
+							<img src="`+val.img+`" />
+							<p>`+val.nome+`</p>
+							<a key="`+val.id+`" href="#">Adicionar ao Carrinho</a>
+							</div>
+						`;
+					})
+				}
+
+				iniciarLoja();
+
+
+				atualizarCarrinho = () =>{
+					var containerCarrinho = document.getElementById('carrinho');
+					containerCarrinho.innerHTML = "";
+
+					items.map((val)=>{
+						if(val.quantidade > 0){
+							containerCarrinho.innerHTML+=`
+							<p>`+val.nome+` | quantidade: `+val.quantidade+`</p>
+							<hr>
+							`;
+						}
+					})
+				}
+
+				var links = document.getElementsByTagName('a');
+
+				for(var i = 0; i < links.length; i++){
+					links[i].addEventListener('click',function(){
+						let key = this.getAttribute('key');
+						items[key].quantidade++;
+						atualizarCarrinho();
+						return false;
+
+					})
+				}
+
+
+
+
+
+
+		</script>
+
+</body>
+</html>
